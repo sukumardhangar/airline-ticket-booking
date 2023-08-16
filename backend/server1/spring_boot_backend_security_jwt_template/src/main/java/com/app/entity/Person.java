@@ -22,8 +22,9 @@ public class Person extends BaseEntity
   private String email;
 	@Column(name = "password",length = 30)
   private String password;
+	@Enumerated(EnumType.STRING) 
 	@Column(name = "role",length = 30)
-  private String role;
+  private Role role;
 	@OneToMany(mappedBy = "personId")
 	private List<Ticket> ticketList = new ArrayList<>();
 	
@@ -34,6 +35,7 @@ public class Person extends BaseEntity
 	  {
 		  flightDetailList.add(f);
 		  f.setPersonId(this);
+		 
 		
 	  }
 	 
@@ -43,6 +45,7 @@ public class Person extends BaseEntity
 	  t.setPersonId(this);
 	
   }
+  
 
   
 }
