@@ -29,14 +29,7 @@ public class Schedule extends BaseEntity
 	@Column(name = "destination",length = 30)
   private String destination;
 
-	@OneToMany(mappedBy = "scheduleId")
-	private List<Seat> seatList = new ArrayList<>();
-	 public void addSeats(Seat s)
-	  {
-          seatList.add(s);
-		 s.setScheduleId(this);
-		
-	  }
+	
 	
 	@ManyToOne 
 	@JoinColumn(name = "flightDetail_id")

@@ -15,6 +15,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Passanger extends BaseEntity {
+	
+	@Column(name = "age",length = 30)
+	  private Long age;
+	@Column(name = "gender",length = 30)
+	  private String gender;
+	
 	@Column(name = "fname",length = 30)
 	  private String firstName;
 		@Column(name = "lname",length = 30)

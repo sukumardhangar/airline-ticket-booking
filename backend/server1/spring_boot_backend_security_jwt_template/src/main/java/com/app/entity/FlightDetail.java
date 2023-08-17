@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,25 +29,18 @@ public class FlightDetail extends BaseEntity
 		
 		@ManyToOne 
 		@JoinColumn(name = "person_id")
+		@JsonProperty(access = Access.WRITE_ONLY)
 	    private Person personId;
 		
-		
-		@OneToMany(mappedBy = "flightDetailId")
-		private List<Schedule> scheduleList = new ArrayList<>();
-		 public void addSchedule(Schedule s)
-		  {
-			 scheduleList.add(s);
-			 s.setFlightDetailId(this);
-			
-		  }
+	
 		 
 		 
-		 @OneToMany(mappedBy = "flightId")
-			private List<Ticket> ticketList = new ArrayList<>();
-			 public void addTicket(Ticket t)
-			  {
-				 ticketList.add(t);
-				 t.setFlightId(this);
-				
-			  }
+//		 @OneToMany(mappedBy = "flightId")
+//			private List<Ticket> ticketList = new ArrayList<>();
+//			 public void addTicket(Ticket t)
+//			  {
+//				 ticketList.add(t);
+//				 t.setFlightId(this);
+//				
+//			  }
 }

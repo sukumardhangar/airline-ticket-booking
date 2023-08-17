@@ -6,12 +6,17 @@ import javax.persistence.Enumerated;
 
 import com.app.entity.Role;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+@Getter
+@Setter
+@NoArgsConstructor
 public class PersonDto {
 
 	  private String firstName;
 	  private String lastName;
 	  private String email;
-	  private String password;
-		@Enumerated(EnumType.STRING) 
-	  private Role role;
+	  private String mob;
+		
 }

@@ -22,29 +22,14 @@ public class Person extends BaseEntity
   private String email;
 	@Column(name = "password",length = 30)
   private String password;
+	@Column(name = "mob",length = 30)
+	  private String mob;
 	@Enumerated(EnumType.STRING) 
 	@Column(name = "role",length = 30)
   private Role role;
-	@OneToMany(mappedBy = "personId")
-	private List<Ticket> ticketList = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "personId")
-	private List<FlightDetail> flightDetailList = new ArrayList<>();
 	
-	 public void addFlightDetail(FlightDetail f)
-	  {
-		  flightDetailList.add(f);
-		  f.setPersonId(this);
-		 
-		
-	  }
-	 
-  public void addTicket(Ticket t)
-  {
-	  ticketList.add(t);
-	  t.setPersonId(this);
 	
-  }
   
 
   
