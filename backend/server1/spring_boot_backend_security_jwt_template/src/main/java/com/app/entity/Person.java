@@ -27,6 +27,8 @@ public class Person extends BaseEntity
 	@Enumerated(EnumType.STRING) 
 	@Column(name = "role",length = 30)
   private Role role;
+	@Column(name = "status",length = 30)
+	  private String status;
 	
 	
 	
