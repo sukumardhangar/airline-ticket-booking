@@ -26,6 +26,8 @@ public class FlightDetail extends BaseEntity
 	  private String airlineName;
 		@Column(name = "category",length = 30)
 	  private String category;
+		@Column(unique = true)
+	  private Long airlineNumber;
 		
 		@ManyToOne 
 		@JoinColumn(name = "person_id")

@@ -7,4 +7,5 @@ import com.app.entity.FlightDetail;
 @Repository
 public interface FlightRepository extends JpaRepository<FlightDetail, Long> {
 
+	FlightDetail findByAirlineNumber(Long id);
 }

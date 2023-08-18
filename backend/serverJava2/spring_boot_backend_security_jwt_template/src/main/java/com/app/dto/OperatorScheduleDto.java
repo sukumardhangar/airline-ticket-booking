@@ -1,12 +1,10 @@
 package com.app.dto;
 
-import lombok.Setter;
-
 import java.time.LocalDateTime;
-
-import com.app.entity.SeatType;
+import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -16,10 +14,7 @@ public class OperatorScheduleDto
 	 private LocalDateTime arrivalTime;
 	 private String source;
 	 private String destination;
-	 private String airlineName;
-	 private String category;
-	 private Long personId;
-	 private SeatType seatType;
-
+	 private Long flightId;
+	 private  List<OperatorSeatDto>ListOfSeats;
 	
 }
