@@ -21,6 +21,11 @@ public class Ticket extends BaseEntity {
 	@JoinColumn(name = "person_id")
     private Person personId;
 	
+	@Column
+	private Double totalPrice;
+	
+	@Column
+	private StatusType ticketStatus;
 	
 
     

@@ -27,13 +27,6 @@ public class Address extends BaseEntity {
 	@Column(length = 20)
 	private String zipCode;
 	
-	@OneToMany(mappedBy = "addressId")
-	private List<Passanger> passangerList = new ArrayList<>();
-  public void addTicket(Passanger p)
-  {
-	  passangerList.add(p);
-	  p.setAddressId(this);
 	
-  }
 	
 }

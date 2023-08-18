@@ -32,7 +32,7 @@ public class ScheduleController {
 	}
 	
 	@GetMapping("/getSeat/{id}")
-    public ResponseEntity<?> personDetails(@PathVariable Long id )
+    public ResponseEntity<?> getSeatDetails(@PathVariable Long id )
     {
    	 return ResponseEntity.status(HttpStatus.OK).body(seatService.getSeatDetail(id));
     }

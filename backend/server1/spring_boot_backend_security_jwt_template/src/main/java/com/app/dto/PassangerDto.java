@@ -22,9 +22,9 @@ public class PassangerDto {
 	  private String lastName;
       private LocalDate dob;  
       private Passport Passport;
-	  private byte[] passportImage;
+	  //private byte[] passportImage;
       private String adharNo;
-	  private byte[] adharImage;
+	//  private byte[] adharImage;
 	  private Long ticId;
 	  private Long addrId;
 

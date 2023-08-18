@@ -1,8 +1,10 @@
 package com.app.service;
 
+import java.util.List;
+
 import com.app.entity.Seat;
 
 public interface seatService {
-	 Seat getSeatDetail(Long id);
+	List<Seat> getSeatDetail(Long id);
 
 }

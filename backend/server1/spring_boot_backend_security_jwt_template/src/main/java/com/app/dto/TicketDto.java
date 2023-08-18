@@ -7,7 +7,9 @@ import lombok.Setter;
 @Setter
 public class TicketDto {
 
+private Long ticketId;
 private Long personId;
 private Long SeatId;
+private Double totalPrice;
 
 }

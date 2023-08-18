@@ -29,7 +29,7 @@ public class Schedule extends BaseEntity
 	@Column(name = "destination",length = 30)
   private String destination;
 
-	
+
 	
 	@ManyToOne 
 	@JoinColumn(name = "flightDetail_id")

@@ -25,6 +25,6 @@ public class Seat extends BaseEntity
   	private Integer seatCount;
    @ManyToOne 
 	@JoinColumn(name = "schedule_id")
-	@JsonProperty(access = Access.WRITE_ONLY)
+	//@JsonProperty(access = Access.WRITE_ONLY)
    private Schedule scheduleId;
 }
