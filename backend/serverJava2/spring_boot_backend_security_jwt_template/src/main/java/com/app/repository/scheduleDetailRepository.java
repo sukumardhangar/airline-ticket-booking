@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.app.entity.FlightDetail;
 import com.app.entity.Schedule;
 @Repository
 public interface scheduleDetailRepository  extends JpaRepository<Schedule, Long>{
@@ -15,4 +16,6 @@ public interface scheduleDetailRepository  extends JpaRepository<Schedule, Long>
 	List<Schedule> getAllSchedule(String source);
 	 
 	List<Schedule> findBySourceAndDestination(String src,String dest);
+	List<Schedule> findByFlightDetailId(FlightDetail detail);
+
 }

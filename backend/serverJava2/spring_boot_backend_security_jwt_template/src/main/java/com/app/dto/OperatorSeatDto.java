@@ -10,6 +10,7 @@ import lombok.Setter;
 public class OperatorSeatDto 
 {
 
+	private Long seeatsId;
    private SeatType seatType;
    private Double price;
    private Integer seatCount;

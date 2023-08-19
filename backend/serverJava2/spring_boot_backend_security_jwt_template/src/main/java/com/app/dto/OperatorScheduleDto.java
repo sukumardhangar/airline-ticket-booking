@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class OperatorScheduleDto 
 {
+	private Long scheId;
 	 private LocalDateTime deparutreTime;
 	 private LocalDateTime arrivalTime;
 	 private String source;
