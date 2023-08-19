@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Lob;
 
+import com.app.entity.Address;
 import com.app.entity.Passport;
 import com.app.entity.Ticket;
 
@@ -22,10 +23,9 @@ public class PassangerDto {
 	  private String lastName;
       private LocalDate dob;  
       private Passport Passport;
-	  //private byte[] passportImage;
+	  private byte[] passportImage;
       private String adharNo;
-	//  private byte[] adharImage;
-	  private Long ticId;
-	  private Long addrId;
-
+	  private byte[] adharImage;
+	  private AddressDto addressDto;
+      private Long SeatNumber;
 }

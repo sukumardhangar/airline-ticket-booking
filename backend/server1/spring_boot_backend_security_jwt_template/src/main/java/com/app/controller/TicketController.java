@@ -30,29 +30,17 @@ public class TicketController {
 	@Autowired
 	private TicketService ticketService;
 	
-	@PostMapping("/addTicket")
-	public ResponseEntity<?> addTicket(@RequestBody TicketDto ticket)
-	{
-		return ResponseEntity.status(HttpStatus.OK).body(ticketService.addTicket(ticket));
-		
-		
-	}
-	@PostMapping("/addPassanger")
-	public ResponseEntity<?> addPassanger(@RequestBody PassangerDto passanger)
-	{
 
-		return ResponseEntity.status(HttpStatus.OK).body(ticketService.addPassanger(passanger));
-		
-		
-	}
-	@PostMapping("/addTotalPrice")
-	public ResponseEntity<?> addTotalPrice(@RequestBody TicketDto ticketDto)
+	
+	@PostMapping("/addBooking")
+	public ResponseEntity<?> addBooking(@RequestBody TicketDto ticket)
 	{
-
-		return ResponseEntity.status(HttpStatus.OK).body(ticketService.addTotalPrice(ticketDto));
+		return ResponseEntity.status(HttpStatus.OK).body(ticketService.addBooking(ticket));
 		
 		
 	}
+	
+	
 	@GetMapping("/getConformTicket/{id}")
 	public ResponseEntity<?> getConformTicket(@RequestParam Long id)
 	{

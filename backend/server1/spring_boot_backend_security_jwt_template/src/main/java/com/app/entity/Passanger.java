@@ -37,15 +37,19 @@ public class Passanger extends BaseEntity {
  	private String adharNo;
      @Lob
   	private byte[] adharImage;
+     
      @ManyToOne 
  	 @JoinColumn(name = "ticket_id")
      private Ticket ticketId;
      
    
+   
      
      @ManyToOne 
  	@JoinColumn(name = "address_id")
      private Address addressId;
+     @Column
+     private Long SeatNumber;
 		
   
 		

@@ -23,8 +23,8 @@ public class Ticket extends BaseEntity {
 	
 	@Column
 	private Double totalPrice;
-	
-	@Column
+	@Enumerated(EnumType.STRING)	
+	@Column(name="ticket_status",length = 30)
 	private StatusType ticketStatus;
 	
 

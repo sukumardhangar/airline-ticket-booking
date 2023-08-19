@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.customException.ResourceNotFoundException;
+import com.app.dto.AddressDto;
 import com.app.dto.ApiResponse;
 import com.app.dto.ConfirmTicketDto;
 import com.app.dto.PassangerDto;
@@ -46,38 +47,65 @@ public class TicketServieImp implements TicketService {
 	private TicketRepoitory ticketRepo;
 	@Autowired
 	private PassangerRepository passrepo;
+//	@Override
+//	public Ticket addTicket(TicketDto ticket) {
+//		// TODO Auto-generated method stub
+//	     
+//		Person per = personRepo.findById(ticket.getPersonId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+//		Seat set = seatRepo.findById(ticket.getSeatId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+//
+//		Ticket t=new Ticket();
+//		t.setPersonId(per);
+//		t.setSeatId(set);
+//		return ticketRepo.save(t);
+//	}
+//	@Override
+//	public PassangerDto addPassanger(PassangerDto passan) {
+//		
+//		Passanger pas=mapper.map(passan, Passanger.class);
+//		Ticket tic = ticketRepo.findById(passan.getTicId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+//		Address address = addreRepo.findById(passan.getAddrId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+//        pas.setTicketId(tic);
+//        pas.setAddressId(address);
+//         Passanger passenger= passrepo.save(pas);
+//		
+//		return mapper.map(passenger, PassangerDto.class);
+//	}
+//	@Override
+//	public Ticket addTotalPrice(TicketDto ticketDto) {
+//		
+//		Ticket tic = ticketRepo.findById(ticketDto.getTicketId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+//	  	tic.setTotalPrice(ticketDto.getTotalPrice());
+//	  Ticket ticket=ticketRepo.save(tic);
+//		return ticket;
+//	}
 	@Override
-	public Ticket addTicket(TicketDto ticket) {
-		// TODO Auto-generated method stub
-	     
-		Person per = personRepo.findById(ticket.getPersonId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-		Seat set = seatRepo.findById(ticket.getSeatId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-
-		Ticket t=new Ticket();
-		t.setPersonId(per);
-		t.setSeatId(set);
-		return ticketRepo.save(t);
+	public ApiResponse addBooking(TicketDto ticket) {
+       Person per = personRepo.findById(ticket.getPersonId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+	   Seat set = seatRepo.findById(ticket.getSeatId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+      Ticket tic=new Ticket();
+      tic.setPersonId(per);
+      tic.setSeatId(set);
+      tic.setTotalPrice(ticket.getTotalPrice());
+      tic.setTicketStatus(StatusType.DONE);
+      Ticket confirmedTicket  = ticketRepo.save(tic);
+      
+      for (PassangerDto passDto : ticket.getPassangerDtoList()) 
+      {
+    	  Address address=  mapper.map(passDto.getAddressDto(),Address.class);
+    	  Address confirmedAddress =   addreRepo.save(address);
+    	  
+    	  Passanger passanger=  mapper.map(passDto,Passanger.class);
+    	  passanger.setAddressId(confirmedAddress);
+    	  passanger.setTicketId(confirmedTicket);
+    	  passrepo.save(passanger);
+    	  
+    	  
+     }
+      
+		return new ApiResponse("Ticket confirmed");
 	}
-	@Override
-	public PassangerDto addPassanger(PassangerDto passan) {
-		
-		Passanger pas=mapper.map(passan, Passanger.class);
-		Ticket tic = ticketRepo.findById(passan.getTicId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-		Address address = addreRepo.findById(passan.getAddrId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-        pas.setTicketId(tic);
-        pas.setAddressId(address);
-         Passanger passenger= passrepo.save(pas);
-		
-		return mapper.map(passenger, PassangerDto.class);
-	}
-	@Override
-	public Ticket addTotalPrice(TicketDto ticketDto) {
-		
-		Ticket tic = ticketRepo.findById(ticketDto.getTicketId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-	  	tic.setTotalPrice(ticketDto.getTotalPrice());
-	  Ticket ticket=ticketRepo.save(tic);
-		return ticket;
-	}
+	
 	@Override
 	public ConfirmTicketDto getConformTicket(Long id) {
 		Ticket ticss = ticketRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
@@ -179,6 +207,7 @@ Passanger passanger = passrepo.findById(id).orElseThrow(() -> new ResourceNotFou
 		Passanger passanger = passrepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid passanger id"));
 		return passanger.getPassportImage();
 	}
+	
 	
 
 	

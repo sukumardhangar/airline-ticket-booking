@@ -14,9 +14,8 @@ import com.app.entity.Ticket;
 
 public interface TicketService {
 
-	Ticket addTicket(TicketDto ticket);
-	PassangerDto addPassanger(PassangerDto passanger);
-	Ticket addTotalPrice(TicketDto ticketDto);
+	ApiResponse addBooking(TicketDto ticket);
+
 	ConfirmTicketDto  getConformTicket( Long id);
      List<ConfirmTicketDto>	getTicketHistory(Long id);
      

@@ -1,5 +1,7 @@
 package com.app.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,9 +9,10 @@ import lombok.Setter;
 @Setter
 public class TicketDto {
 
-private Long ticketId;
 private Long personId;
 private Long SeatId;
 private Double totalPrice;
+private List<PassangerDto> passangerDtoList;
+
 
 }

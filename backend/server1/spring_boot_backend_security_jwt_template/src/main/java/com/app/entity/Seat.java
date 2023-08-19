@@ -23,6 +23,9 @@ public class Seat extends BaseEntity
 	private Double price;
    @Column
   	private Integer seatCount;
+   @Column
+   private Integer TotalBooked;
+
    @ManyToOne 
 	@JoinColumn(name = "schedule_id")
 	//@JsonProperty(access = Access.WRITE_ONLY)
