@@ -79,4 +79,13 @@ public class TicketController {
 		return ResponseEntity.ok(ticketService.downPassportImage(id));
 	}
 	
+	@GetMapping("/cancelTicket/{id}")
+	public ResponseEntity<?> cancelTicket(@RequestParam Long id)
+	{
+
+		return ResponseEntity.status(HttpStatus.OK).body(ticketService.cancelTicket(id));
+		
+		
+	}
+	
 }

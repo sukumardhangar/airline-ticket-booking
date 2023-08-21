@@ -7,7 +7,12 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.app.customException.ResourceNotFoundException;
 import com.app.dto.ApiResponse;
@@ -15,6 +20,7 @@ import com.app.dto.OpearatorDto;
 import com.app.dto.OperatorFlightDetailDto;
 import com.app.dto.OperatorScheduleDto;
 import com.app.dto.OperatorSeatDto;
+import com.app.dto.SeatSendDTo;
 import com.app.entity.FlightDetail;
 import com.app.entity.Person;
 import com.app.entity.Schedule;
@@ -23,6 +29,7 @@ import com.app.repository.FlightRepository;
 import com.app.repository.PersonRepository;
 import com.app.repository.SeatRepository;
 import com.app.repository.scheduleDetailRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Transactional
 @Service
@@ -39,6 +46,8 @@ public class OperatorFlightDetailServicIml implements OperatorFlightDetailServic
 	private scheduleDetailRepository scheduleRepo;
 	@Autowired
 	private SeatRepository seatRepo;
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	@Override
 	public ApiResponse addFlightDetails(OperatorFlightDetailDto detailDto)
@@ -80,8 +89,20 @@ public class OperatorFlightDetailServicIml implements OperatorFlightDetailServic
 			{
 				Seat seat=mapper.map(scd,Seat.class);
 				seat.setScheduleId(schedule);
-				seatRepo.save(seat);
-				
+
+				Seat savedSeat= seatRepo.save(seat);
+//				String url="http://127.0.0.1:7078/seatController/addSeat/"+savedSeat.getId()+"/"+savedSeat.getSeatCount();
+//				System.out.println(url);
+//		        ApiResponse response=restTemplate.getForObject(url,ApiResponse.class );
+                
+				SeatSendDTo seatSendDTo=new SeatSendDTo();
+				seatSendDTo.setSeatTypeNo(savedSeat.getId());
+				seatSendDTo.setSeatCount(savedSeat.getSeatCount().longValue());
+			boolean check=	postRequest(seatSendDTo);
+			if(!check)
+			{
+				 return new ApiResponse("flight scedule not added");
+			}
 			}
 			scheduleRepo.save(schedule);
 		}
@@ -89,6 +110,28 @@ public class OperatorFlightDetailServicIml implements OperatorFlightDetailServic
 		 return new ApiResponse("flight scedule addedSuccsfuly");
 	
 	}
+	
+	public boolean postRequest(SeatSendDTo seatSendDTo) {
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+//			headers.set("Authorization", "Bearer " + token);
+			headers.setContentType(MediaType.APPLICATION_JSON);
+
+     		String url="http://127.0.0.1:7078/seatController/addSeat";
+
+			String json = new ObjectMapper().writeValueAsString(seatSendDTo);
+			HttpEntity<String> entity = new HttpEntity<>(json, headers);
+
+			Object res = restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
+			return true;
+
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
 
 	@Override
 	public ApiResponse addOperator(OpearatorDto operator) {

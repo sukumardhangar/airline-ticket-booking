@@ -8,14 +8,21 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.customException.ResourceNotFoundException;
-import com.app.dto.AddressDto;
 import com.app.dto.ApiResponse;
 import com.app.dto.ConfirmTicketDto;
 import com.app.dto.PassangerDto;
+import com.app.dto.SeatNumberDto;
+import com.app.dto.SeatSendDetailDto;
 import com.app.dto.TicketDto;
 import com.app.entity.Address;
 import com.app.entity.Passanger;
@@ -28,6 +35,7 @@ import com.app.repository.PassangerRepository;
 import com.app.repository.PersonRepository;
 import com.app.repository.SeatRepository;
 import com.app.repository.TicketRepoitory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Transactional
@@ -47,42 +55,14 @@ public class TicketServieImp implements TicketService {
 	private TicketRepoitory ticketRepo;
 	@Autowired
 	private PassangerRepository passrepo;
-//	@Override
-//	public Ticket addTicket(TicketDto ticket) {
-//		// TODO Auto-generated method stub
-//	     
-//		Person per = personRepo.findById(ticket.getPersonId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-//		Seat set = seatRepo.findById(ticket.getSeatId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-//
-//		Ticket t=new Ticket();
-//		t.setPersonId(per);
-//		t.setSeatId(set);
-//		return ticketRepo.save(t);
-//	}
-//	@Override
-//	public PassangerDto addPassanger(PassangerDto passan) {
-//		
-//		Passanger pas=mapper.map(passan, Passanger.class);
-//		Ticket tic = ticketRepo.findById(passan.getTicId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-//		Address address = addreRepo.findById(passan.getAddrId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-//        pas.setTicketId(tic);
-//        pas.setAddressId(address);
-//         Passanger passenger= passrepo.save(pas);
-//		
-//		return mapper.map(passenger, PassangerDto.class);
-//	}
-//	@Override
-//	public Ticket addTotalPrice(TicketDto ticketDto) {
-//		
-//		Ticket tic = ticketRepo.findById(ticketDto.getTicketId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-//	  	tic.setTotalPrice(ticketDto.getTotalPrice());
-//	  Ticket ticket=ticketRepo.save(tic);
-//		return ticket;
-//	}
+	@Autowired
+	private RestTemplate restTemplate;
+	
 	@Override
 	public ApiResponse addBooking(TicketDto ticket) {
        Person per = personRepo.findById(ticket.getPersonId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
 	   Seat set = seatRepo.findById(ticket.getSeatId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+	   set.setTotalBooked(set.getTotalBooked()+ticket.getPassangerDtoList().size());
       Ticket tic=new Ticket();
       tic.setPersonId(per);
       tic.setSeatId(set);
@@ -98,7 +78,18 @@ public class TicketServieImp implements TicketService {
     	  Passanger passanger=  mapper.map(passDto,Passanger.class);
     	  passanger.setAddressId(confirmedAddress);
     	  passanger.setTicketId(confirmedTicket);
-    	  passrepo.save(passanger);
+    	  System.out.println("before pass added");
+    	  Passanger pas= passrepo.save(passanger);
+    	  System.out.println("after pass added");
+
+    	  SeatSendDetailDto seatSendDTo=new SeatSendDetailDto();
+    	  seatSendDTo.setPassangerId(pas.getId());
+    	  seatSendDTo.setSeatingNumber(passDto.getSeatNumber());
+    	  seatSendDTo.setSeatTypeNumber(confirmedTicket.getSeatId().getId());;
+
+    	  
+    	  boolean check=putRequest(seatSendDTo);
+    	  System.out.println(check);
     	  
     	  
      }
@@ -106,10 +97,29 @@ public class TicketServieImp implements TicketService {
 		return new ApiResponse("Ticket confirmed");
 	}
 	
+	public boolean putRequest(SeatSendDetailDto seatSendDTo) {
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+//			headers.set("Authorization", "Bearer " + token);
+			headers.setContentType(MediaType.APPLICATION_JSON);
+
+     		String url="http://127.0.0.1:7078/seatController/addPassangerId";
+
+			String json = new ObjectMapper().writeValueAsString(seatSendDTo);
+			HttpEntity<String> entity = new HttpEntity<>(json, headers);
+
+			Object res = restTemplate.exchange(url, HttpMethod.PUT, entity, Object.class);
+			return true;
+
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 	@Override
 	public ConfirmTicketDto getConformTicket(Long id) {
 		Ticket ticss = ticketRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
-		ticss.setTicketStatus(StatusType.DONE);
 		Ticket tic= ticketRepo.save(ticss);
 		
 		List<Passanger> listofPassanger=passrepo.findAllByTicketId(tic);
@@ -123,7 +133,15 @@ public class TicketServieImp implements TicketService {
 			p.setDob(passanger.getDob());
 			p.setGender(passanger.getGender());
 			p.setAdharNo(passanger.getAdharNo());
-			passangerDtoList.add(p);
+			  SeatSendDetailDto seatSendDTo=new SeatSendDetailDto();
+	    	  seatSendDTo.setPassangerId(passanger.getId());
+	    	  seatSendDTo.setSeatTypeNumber(passanger.getTicketId().getSeatId().getId());;
+	    	  System.out.println(passanger.getTicketId().getId()+" "+passanger.getId()); 
+	    	  
+			 Long r=postRequest(seatSendDTo);
+			 p.setSeatNumber(r);
+				passangerDtoList.add(p);
+
 			
 		}
 		
@@ -140,6 +158,40 @@ public class TicketServieImp implements TicketService {
 		
 		return confirmTicketDto;
 	}
+	
+	public Long postRequest(SeatSendDetailDto seatSendDTo) {
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+//			headers.set("Authorization", "Bearer " + token);
+			headers.setContentType(MediaType.APPLICATION_JSON);
+
+     		String url="http://127.0.0.1:7078/seatController/getSeatNumberOfPassnager";
+
+			String json = new ObjectMapper().writeValueAsString(seatSendDTo);
+			HttpEntity<String> entity = new HttpEntity<>(json, headers);
+          System.out.println("before restTemplate call");
+          ResponseEntity<Long> res = restTemplate.exchange(url, HttpMethod.POST, entity, Long.class);
+
+//			ResponseEntity<Long> respo=(ResponseEntity<Long>) res;
+//
+          Long r=null;
+//	          
+          if(res.getStatusCode().is2xxSuccessful())
+        	    r= res.getBody();
+          else
+        	  r=1432l;
+          
+          
+	     System.out.println("after restTemplate call ");
+
+			return  r;
+
+		} catch (Exception e) {
+			return 14l;
+		}
+	}
+	
 	@Override
 	public List<ConfirmTicketDto> getTicketHistory(Long id) {
 		
@@ -161,7 +213,15 @@ public class TicketServieImp implements TicketService {
 		     			p.setDob(passanger.getDob());
 		     			p.setGender(passanger.getGender());
 		     			p.setAdharNo(passanger.getAdharNo());
+		     			SeatSendDetailDto seatSendDTo=new SeatSendDetailDto();
+		  	    	  seatSendDTo.setPassangerId(passanger.getId());
+		  	    	  seatSendDTo.setSeatTypeNumber(passanger.getTicketId().getSeatId().getId());;
+		  	    	  System.out.println(passanger.getTicketId().getId()+" "+passanger.getId()); 
+		  	    	  
+		  			 Long r=postRequest(seatSendDTo);
+		  			 p.setSeatNumber(r);
 		     			passangerDtoList.add(p);
+		     			
 		     			
 		     		}
 		     		
@@ -206,6 +266,31 @@ Passanger passanger = passrepo.findById(id).orElseThrow(() -> new ResourceNotFou
 	public byte[] downPassportImage(Long id) throws IOException {
 		Passanger passanger = passrepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid passanger id"));
 		return passanger.getPassportImage();
+	}
+
+	@Override
+	public ApiResponse cancelTicket(Long id) {
+		Ticket ticss = ticketRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+		ticss.setTicketStatus(StatusType.REJECTED);
+	
+		Seat set = seatRepo.findById(ticss.getSeatId().getId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+		List<Passanger> listofPassanger=passrepo.findAllByTicketId(ticss);
+
+		set.setTotalBooked( set.getTotalBooked()-listofPassanger.size()); 
+		for (Passanger passanger : listofPassanger) {
+			 SeatSendDetailDto seatSendDTo=new SeatSendDetailDto();
+			 passanger.setSeatNumber(0l);
+		   	  seatSendDTo.setPassangerId(passanger.getId());
+		   	  seatSendDTo.setSeatingNumber(passanger.getSeatNumber());
+		   	  seatSendDTo.setSeatTypeNumber(set.getId());
+
+		   	  
+		   	  boolean check=putRequest(seatSendDTo);
+			
+		}
+		
+		
+		return null;
 	}
 	
 	

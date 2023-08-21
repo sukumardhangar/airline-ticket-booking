@@ -15,6 +15,7 @@ public class OperatorSeatDto
    private Double price;
    private Integer seatCount;
    private Long  schedId;
+   private Integer TotalBooked;
 
 
 }

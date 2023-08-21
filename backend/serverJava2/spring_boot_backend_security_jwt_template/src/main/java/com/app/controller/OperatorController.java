@@ -23,7 +23,7 @@ public class OperatorController
 	private OperatorFlightDetailService operService;
 
 	@PostMapping("/addFlightDetails")
-	public ResponseEntity<?> getallFlight(@RequestBody OperatorFlightDetailDto detailDto)
+	public ResponseEntity<?> addFlightDetails(@RequestBody OperatorFlightDetailDto detailDto)
 	{
 		
 		return ResponseEntity.status(HttpStatus.OK).body(operService.addFlightDetails(detailDto));

@@ -27,4 +27,6 @@ public interface TicketService {
  	
  	byte[] downPassportImage(Long id) throws IOException;
 
+	ApiResponse cancelTicket(Long id);
+
 }
