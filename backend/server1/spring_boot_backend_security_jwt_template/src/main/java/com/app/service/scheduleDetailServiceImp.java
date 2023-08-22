@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,9 @@ public class scheduleDetailServiceImp implements scheduleDetailService{
 				s.setDestination(schedule.getDestination());
 				s.setSource(schedule.getSource());
 				s.setScheduleId(schedule.getId());
+		        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy  -  HH:mm:ss");  
+		      s.setArraivalFormatter(schedule.getArrivalTime().format(format));
+		      s.setDepartureFormatter(schedule.getDeparutreTime().format(format));
 		      Duration duration= Duration.between(schedule.getDeparutreTime(),schedule.getArrivalTime());
 		      long seconds = duration.getSeconds();
 

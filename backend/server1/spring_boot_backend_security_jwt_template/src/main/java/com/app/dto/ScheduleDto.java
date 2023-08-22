@@ -1,7 +1,8 @@
 package com.app.dto;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.time.format.DateTimeFormatter;  
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,9 @@ public class ScheduleDto {
 	 private String airlineName;
 	 private Long []arrOfDuration=new Long[3];
 	 private String category;
+	 private String arraivalFormatter;
+	 private String departureFormatter;
+
 
 
 }
