@@ -150,14 +150,15 @@ public class OperatorFlightDetailServicIml implements OperatorFlightDetailServic
 	}
 
 	@Override
-	public ApiResponse editOperator(OpearatorDto operator) {
-		Person person=	personRepo.findById(operator.getOperatorId()).orElseThrow(()-> new ResourceNotFoundException("not valid id"));
-		
-		Person per	=mapper.map(operator,Person.class);
-		per.setId(person.getId());
-		personRepo.save(per);
-		
-		return new ApiResponse("edited successefully");
+	public ApiResponse editOperator(Person p) {
+		Person person = personRepo.findById(p.getId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+        
+		person.setFirstName(p.getFirstName());
+		person.setLastName(p.getLastName());
+		person.setEmail(p.getEmail());
+		person.setMob(p.getMob());
+		personRepo.save(person);
+	return new ApiResponse("addded");
 	}
 
 	@Override
@@ -186,5 +187,40 @@ public class OperatorFlightDetailServicIml implements OperatorFlightDetailServic
 		
 		return flightDetailDto;
 	}
-     
+	
+	@Override
+	public List<OperatorFlightDetailDto> getAllFlightOfuser(Long id) {
+		Person person = personRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+
+		List<FlightDetail> flightDetailList=flightRepo.findByPersonId(person);
+		List<OperatorFlightDetailDto>flightDetailDtoList=new ArrayList<OperatorFlightDetailDto>();
+		
+		for (FlightDetail flightDetail : flightDetailList) 
+		{
+			OperatorFlightDetailDto flightDetailDto=mapper.map(flightDetail,OperatorFlightDetailDto.class);
+			List<Schedule> scheduleList=scheduleRepo.findByFlightDetailId(flightDetail);
+			List<OperatorScheduleDto>operatorScheduleDtoList=new ArrayList<OperatorScheduleDto>();
+			for (Schedule schedule : scheduleList) {
+				
+				OperatorScheduleDto scheduleDto=mapper.map(schedule,OperatorScheduleDto.class);
+				scheduleDto.setScheId(schedule.getId());
+				List<OperatorSeatDto>Seatdtos=new ArrayList<OperatorSeatDto>();
+				List<Seat>SeatList=seatRepo.findByScheduleId(schedule);
+				for (Seat seat : SeatList) {
+					OperatorSeatDto operatorSeatDto=mapper.map(seat,OperatorSeatDto.class);
+					operatorSeatDto.setSeeatsId(seat.getId());
+					Seatdtos.add(operatorSeatDto);
+				}
+				scheduleDto.setListOfSeats(Seatdtos);
+				operatorScheduleDtoList.add(scheduleDto);
+				
+			}
+			flightDetailDto.setListOfScedules(operatorScheduleDtoList);
+			flightDetailDtoList.add(flightDetailDto);
+		}
+		
+		
+		
+		return flightDetailDtoList;
+	}
 }

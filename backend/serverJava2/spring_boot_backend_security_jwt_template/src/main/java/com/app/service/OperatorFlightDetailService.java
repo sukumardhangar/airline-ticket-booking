@@ -1,16 +1,21 @@
 package com.app.service;
 
+import java.util.List;
+
 import com.app.dto.ApiResponse;
 import com.app.dto.OpearatorDto;
 import com.app.dto.OperatorFlightDetailDto;
+import com.app.entity.Person;
 
 public interface OperatorFlightDetailService  {
 
 	ApiResponse addFlightDetails(OperatorFlightDetailDto detailDto);
 	ApiResponse addOperator(OpearatorDto operator);
 	OpearatorDto getOperator(Long id);
-	ApiResponse editOperator(OpearatorDto operator);
+	ApiResponse editOperator(Person operator);
 	OperatorFlightDetailDto getFlightSCheduleById(Long id);
+	List<OperatorFlightDetailDto> getAllFlightOfuser(Long id);
+
 
 	
 }

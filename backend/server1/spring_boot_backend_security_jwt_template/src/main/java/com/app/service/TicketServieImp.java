@@ -195,6 +195,7 @@ public class TicketServieImp implements TicketService {
 	@Override
 	public List<ConfirmTicketDto> getTicketHistory(Long id) {
 		
+		
 		Person per = personRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
 		         List<Ticket> ticketList  = ticketRepo.findByPersonId(per);
 		         
@@ -234,6 +235,8 @@ public class TicketServieImp implements TicketService {
 		     		confirmTicketDto.setDestination(tic.getSeatId().getScheduleId().getDestination());
 		     		confirmTicketDto.setSource(tic.getSeatId().getScheduleId().getSource());
 		     		confirmTicketDto.setPassangerDto(passangerDtoList);
+		     		confirmTicketDto.setTickId(tic.getId());
+		     		confirmTicketDto.setStatusOfTicket(tic.getTicketStatus());
 		     		ConfirmTicketDtoList.add(confirmTicketDto);
 		     		
 				}

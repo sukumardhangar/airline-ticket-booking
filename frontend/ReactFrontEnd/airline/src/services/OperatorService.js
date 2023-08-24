@@ -1,7 +1,8 @@
-import {operatorAxios} from '../http-common';
+import allaxios from '../Customer-http-common';
 
 
 //operator controller
+const operatorAxios=allaxios.OperatorAxios;
 
 const editOperator = (data) => {
     return operatorAxios.put('editOperator', data);
@@ -21,7 +22,11 @@ const addFlightDetails = (data) => {
   };
 
   const getFlightDetilsByAirLineNumber = (id) => {
-    return operatorAxios.get(`getFlightDetilsByAirLineNumber/${id}`);
+    return operatorAxios.get(`getFlightDeatilByAirlineNumber/${id}`);
+  };
+
+  const getAllFLightOfOperator = (id) => {
+    return operatorAxios.get(`getAllFlightOfOpeartor/${id}`);
   };
 
 
@@ -31,4 +36,5 @@ const addFlightDetails = (data) => {
 
 
 
-export default { editOperator,addOperator,addFlightDetails,getOperator,getFlightDetilsByAirLineNumber };
+
+export default { editOperator,addOperator,addFlightDetails,getOperator,getFlightDetilsByAirLineNumber,getAllFLightOfOperator };

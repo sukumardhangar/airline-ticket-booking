@@ -1,8 +1,8 @@
-import CustomerAxios from '../Customer-http-common';
+import allaxios from '../Customer-http-common';
 
 // person controller3
 
-
+const CustomerAxios=allaxios.CustomerAxios;
 const editPerson = (data) => {
     return CustomerAxios.put('person/EditPerson', data);
   };
@@ -31,15 +31,15 @@ const addBooking = (data) => {
   };
 
   const getTicketHistory = (id) => {
-    return CustomerAxios.get(`ticket/getTicketHistory/${id}`);
+    return CustomerAxios.get(`ticket/getTicketHistory/{id}?id=${id}`);
   };
 
   const getConfirmTicket = (id) => {
-    return CustomerAxios.get(`ticket/getConformTicket/${id}`);
+    return CustomerAxios.get(`ticket/getConformTicket/{id}?id=${id}`);
   };
 
   const CancelTicket = (id) => {
-    return CustomerAxios.get(`ticket/cancelTicket/${id}`);
+    return CustomerAxios.get(`ticket/cancelTicket/{id}?id=${id}`);
   };
 
 

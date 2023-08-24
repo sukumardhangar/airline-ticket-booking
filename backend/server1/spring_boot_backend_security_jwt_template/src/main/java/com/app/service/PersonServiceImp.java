@@ -41,7 +41,13 @@ public class PersonServiceImp  implements personService {
 	}
 	@Override
 	public ApiResponse EditPerson(Person p) {
-                personRepo.save(p);
+			Person person = personRepo.findById(p.getId()).orElseThrow(() -> new ResourceNotFoundException("Invalid person id"));
+              
+			person.setFirstName(p.getFirstName());
+			person.setLastName(p.getLastName());
+			person.setEmail(p.getEmail());
+			person.setMob(p.getMob());
+			personRepo.save(person);
 		return new ApiResponse("addded");
 	}
 	 @Override

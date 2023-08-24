@@ -29,8 +29,7 @@ const FlightSchedule=()=>
                 
             });
             
-        },[]
-   )
+        },[] )
  
 
     return (
@@ -38,8 +37,7 @@ const FlightSchedule=()=>
          
          <div>
          <ProtectedNav></ProtectedNav>
-    <div>
-    </div>
+   
     <div>
     <Table striped bordered hover>
         <thead>

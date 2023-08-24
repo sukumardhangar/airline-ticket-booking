@@ -2,7 +2,7 @@ import ProfileNav from './profilenav';
 import Homenav from './homenav';
 function ProtectedNav()
 {
-    const islogged=true;
+    const islogged=false;
     if(islogged)
     {
         return(<ProfileNav/>)

@@ -1,6 +1,7 @@
-import {AdminAxios} from '../Customer-http-common';
+import allaxios from '../Customer-http-common';
 
 //admin.js
+const AdminAxios=allaxios.AdminAxios;
 
 const GetAllOperator = () => {
   return AdminAxios.get('admin');
