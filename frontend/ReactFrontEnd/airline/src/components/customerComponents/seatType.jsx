@@ -3,6 +3,7 @@ import { useEffect,useState } from 'react';
 import SeatSelectButton from './SeatSelectionButton'
 import CustomerService from '../../services/CustomerService';
 import { Table, Button } from 'react-bootstrap';
+import ProtectedNav from "./protectedNav";
 
 
 const SeatType=()=>
@@ -36,7 +37,8 @@ const SeatType=()=>
 
     return (
         <>
-         
+      <ProtectedNav></ProtectedNav>
+
    <div>
     <h1>{message}</h1>
     <div>

@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,8 @@ import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping("/ticket")
+@CrossOrigin(origins = "http://localhost:3000")
+
 public class TicketController {
 
 	@Autowired
@@ -35,6 +38,8 @@ public class TicketController {
 	@PostMapping("/addBooking")
 	public ResponseEntity<?> addBooking(@RequestBody TicketDto ticket)
 	{
+		 
+		System.out.println(ticket.getPersonId());
 		return ResponseEntity.status(HttpStatus.OK).body(ticketService.addBooking(ticket));
 		
 		
@@ -52,7 +57,7 @@ public class TicketController {
 	@GetMapping("/getTicketHistory/{id}")
 	public ResponseEntity<?> getTicketHistory(@RequestParam Long id)
 	{
-
+            System.out.println("his "+id);
 		return ResponseEntity.status(HttpStatus.OK).body(ticketService.getTicketHistory(id));
 		
 		

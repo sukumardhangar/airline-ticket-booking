@@ -1,4 +1,4 @@
-import Navbar from "./navbar";
+import ProtectedNav from "./protectedNav";
 import {useEffect,useState} from "react"
 import {useNavigate} from 'react-router-dom'
 const SearchFLight= ()=>
@@ -19,7 +19,7 @@ const SearchFLight= ()=>
    
       return (
         <div>
-          <Navbar></Navbar>
+          <ProtectedNav></ProtectedNav>
           {/* Required meta tags */}
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />

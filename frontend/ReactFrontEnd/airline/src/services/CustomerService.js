@@ -31,7 +31,7 @@ const addBooking = (data) => {
   };
 
   const getTicketHistory = (id) => {
-    return CustomerAxios.get(`ticket/getPerson/${id}`);
+    return CustomerAxios.get(`ticket/getTicketHistory/${id}`);
   };
 
   const getConfirmTicket = (id) => {

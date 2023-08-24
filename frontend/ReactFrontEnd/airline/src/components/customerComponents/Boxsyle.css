@@ -1,0 +1,55 @@
+.box {
+    height: 50px; 
+    width: 50px; 
+    background-color:bisque; 
+    margin: 20px;
+    border-radius: 15%;
+    border: 2px;
+    border-color: black;
+    border-style: solid;
+}
+
+#container {
+    height: 600px; 
+    width: 600px; 
+    background-color:cadetblue; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    vertical-align: middle;
+    padding: 20px;
+    border-radius: 10%;
+}
+
+#info {
+    height: 100px;
+    width: 600px;
+    margin-top: 15px;
+    border-radius: 70px;
+    padding: 10px;
+    background-color: cadetblue;
+}
+
+#attempt {
+    height: 30px;
+    width: 150px;
+    background-color: azure;
+    border-radius: 20px;
+}
+
+#win {
+    display: none;
+    height: 30px;
+    width: 150px;
+    background-color: azure;
+    border-radius: 20px;
+    margin-top: 5px;
+}
+
+#restart {
+    height: 30px;
+    width: 150px;
+    background-color: azure;
+    border-radius: 20px;
+    margin-top: 5px;
+}

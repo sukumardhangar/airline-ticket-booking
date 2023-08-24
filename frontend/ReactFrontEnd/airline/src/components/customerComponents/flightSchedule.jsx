@@ -2,6 +2,8 @@ import { useLocation,useNavigate,Link } from 'react-router-dom';
 import { useEffect,useState } from 'react';
  import CustomerService from '../../services/CustomerService'
  import { Table, Button } from 'react-bootstrap';
+ import ProtectedNav from "./protectedNav";
+
 const FlightSchedule=()=>
 {
     const data=useLocation().state;
@@ -35,6 +37,7 @@ const FlightSchedule=()=>
         <>
          
          <div>
+         <ProtectedNav></ProtectedNav>
     <div>
     </div>
     <div>
@@ -60,12 +63,7 @@ const FlightSchedule=()=>
               <td>{sched.arraivalFormatter}</td>
               <td>{sched.arrOfDuration[0]}:{sched.arrOfDuration[1]}:{sched.arrOfDuration[2]}</td>
               <td>
-                {/* <Button 
-                 
-                  onClick={toSeatType}
-                >
-                See Details
-                </Button> */}
+               
                 <Link to="/SeatType" state={{scheduleId:sched.scheduleId}}>click </Link>
               </td>
             </tr>

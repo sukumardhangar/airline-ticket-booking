@@ -8,7 +8,7 @@ function SeatSelectButton(props)
             return(
                 
                 <>
-               <Link to="/seatingArrangment" state={props.seat}>choose the seats</Link>
+               <Link to="/seatingArrangment" state={{ seats:props.seating}} >choose the seats</Link>
                 </>
                 
             )
