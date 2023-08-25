@@ -4,7 +4,7 @@ import "./App.css"
 //import Slider from 'react-slick';
 //  import 'slick-carousel/slick/slick.css';
 //  import 'slick-carousel/slick/slick-theme.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, useRoutes,Router,Route,Routes } from 'react-router-dom';
 import SearchFLight from './components/customerComponents/searchFlight'
 import FlightSchedule from './components/customerComponents/flightSchedule';
 import SeatType from './components/customerComponents/seatType';
@@ -23,46 +23,48 @@ import AllScheduleByAirline from './components/operatorComponents/allScheduleFor
 import OprProfile from './components/operatorComponents/oprProfile';
 import OprEditPorfile from './components/operatorComponents/oprEditPofile';
 import GetAllFlightDetailFOrOperator from './components/operatorComponents/getAllFlightForOperator'
+import ScheduleAdded from './components/operatorComponents/scheduleAdded';
+import LoginPage from './components/customerComponents/login';
+import ProtectedRoute from './components/protectedRoute';
+import OprHome from './components/operatorComponents/homeOpr';
+
 function App() {
   return (
     <BrowserRouter>
+    <div>
       <div>
-        <div>
-          <Routes> bookingHistory
+        <Routes> bookingHistory
              <Route exact path='/' element={ <TestHome/> } />
+             <Route exact path='/login' element={ <LoginPage/> } />
              <Route exact path='/bookingHistory' element={ <BookingHistory/> } />
              <Route exact path='/profile' element={ <Profile/> } />
              <Route exact path='/editprofile' element={ <EditPorfile/> } />
              <Route exact path='/aboutUs' element={ <About/> } />
-            <Route exact path='/searchFLight' element={<SearchFLight />} />
-            <Route exact path='/flightDetail' element={<FlightSchedule/>} />
-            <Route exact path='/SeatType' element={<SeatType/>} />
-            <Route exact path='/seatingArrangment' element={ <SeatingArrangment/> } />
-            <Route exact path='/addPassangers' element={ <AllPassnger/> } />
-            <Route exact path='/makePayment' element={ <MakePayment/> } />
-            <Route exact path='/confirmBooking' element={ <ConfirmBooking/> } />
-
-            allScheduleForAirLine
-            <Route exact path='/OpAddSchedule' element={ <AddFlightSchedule/> } />
-            <Route exact path='/oprSearchFlight' element={ <SearchFlightByAirlineNumber/> } />
-            <Route exact path='/allScheduleForAirLine' element={ <AllScheduleByAirline/> } />
-            <Route exact path='/oprProfile' element={ <OprProfile/> } />
-            <Route exact path='/oprEditprofile' element={ <OprEditPorfile/> } />
-            <Route exact path='/allFlightOfOPerator' element={ <GetAllFlightDetailFOrOperator/> } />
+             <Route exact path='/searchFLight' element={<SearchFLight />} />
+             <Route exact path='/flightDetail' element={<FlightSchedule/>} />
+             <Route exact path='/SeatType' element={<SeatType/>} />
+             <Route exact path='/seatingArrangment' element={ <SeatingArrangment/> } />
+             <Route exact path='/addPassangers' element={ <AllPassnger/> } />
+             <Route exact path='/makePayment' element={ <MakePayment/> } />
+             <Route exact path='/confirmBooking' element={ <ConfirmBooking/> } />
 
 
-
-
-
-
-
-
-
-          </Routes>
+             <Route exact path='/OprHome' element={ <OprHome/> } />
+             <Route exact path='/OpAddSchedule' element={ <AddFlightSchedule/> } />
+             <Route exact path='/oprSearchFlight' element={ <SearchFlightByAirlineNumber/> } />
+             <Route exact path='/allScheduleForAirLine' element={ <AllScheduleByAirline/> } />
+             <Route exact path='/oprProfile' element={ <OprProfile/> } />
+             <Route exact path='/oprEditprofile' element={ <OprEditPorfile/> } />
+             <Route exact path='/allFlightOfOPerator' element={ <GetAllFlightDetailFOrOperator/> } />
+             <Route exact path='/scheduleAdded' element={ <ScheduleAdded/> } />
+       </Routes>
         </div>
       </div>
     </BrowserRouter>
   );
 }
 
+
+
 export default App;
+

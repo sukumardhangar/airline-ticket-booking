@@ -1,4 +1,5 @@
 import allaxios from '../Customer-http-common';
+import axios from 'axios';
 
 
 //operator controller
@@ -29,12 +30,21 @@ const addFlightDetails = (data) => {
     return operatorAxios.get(`getAllFlightOfOpeartor/${id}`);
   };
 
+  const loginAsOperator = (data) => {
+    return  axios.create({
+      baseURL: 'http://localhost:7066/',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).post('auth/signin', data);
+
+
+};
+    
 
 
 
 
 
 
-
-
-export default { editOperator,addOperator,addFlightDetails,getOperator,getFlightDetilsByAirLineNumber,getAllFLightOfOperator };
+export default { editOperator,addOperator,addFlightDetails,getOperator,getFlightDetilsByAirLineNumber,getAllFLightOfOperator,loginAsOperator };

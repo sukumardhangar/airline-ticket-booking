@@ -7,6 +7,9 @@ const ProfileNav = () =>
 
   const signOut=()=>
   {
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("jwt");
+
     navigate('/');
 
   }

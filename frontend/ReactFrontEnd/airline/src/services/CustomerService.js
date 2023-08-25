@@ -7,9 +7,7 @@ const editPerson = (data) => {
     return CustomerAxios.put('person/EditPerson', data);
   };
 
-  const login = (data) => {
-    return CustomerAxios.post('person/login', data);
-  };
+ 
 
   const addPerson = (data) => {
     return CustomerAxios.post('person/addPerson', data);
@@ -53,5 +51,9 @@ const GetSchedule = (data) => {
   };
 
 
+  const loginUser = (data) => {
+    return CustomerAxios.post('auth/signin', data);
+  };
 
-export default {editPerson,login,addPerson,getPersonAll,getPerson ,addBooking,getTicketHistory ,getConfirmTicket,CancelTicket,GetSchedule,getSeat };
+
+export default {editPerson,loginUser,addPerson,getPersonAll,getPerson ,addBooking,getTicketHistory ,getConfirmTicket,CancelTicket,GetSchedule,getSeat };

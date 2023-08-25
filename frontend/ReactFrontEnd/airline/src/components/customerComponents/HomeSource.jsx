@@ -22,7 +22,7 @@ const HomeSorce = () =>
   };
 
   const toFlightDetail=()=>{
-    navigate('flightDetail',{state:formData});
+    navigate('/flightDetail',{state:formData});
       }
 
       return (

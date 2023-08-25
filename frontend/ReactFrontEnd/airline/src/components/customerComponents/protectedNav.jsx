@@ -2,8 +2,11 @@ import ProfileNav from './profilenav';
 import Homenav from './homenav';
 function ProtectedNav()
 {
-    const islogged=false;
-    if(islogged)
+    const id=sessionStorage.getItem("userId");
+    const role=sessionStorage.getItem("role");
+    const jwt=sessionStorage.getItem("jwt");
+
+    if(id!=null && role!=null && role==="CUSTOMER" && jwt!=null)
     {
         return(<ProfileNav/>)
     }

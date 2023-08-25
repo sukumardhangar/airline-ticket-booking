@@ -6,6 +6,7 @@ import ProtectedNavOpr from './protectedNavOpr';
 function OprProfile()
 {
     const navigate=useNavigate();
+    const id=sessionStorage.getItem("userId");
 
     const [formData, setFormData]=useState([]);
     const [message,setMessage]=useState("");
@@ -13,7 +14,7 @@ function OprProfile()
     {
         
         OperatorService.
-        getOperator(3)
+        getOperator(id)
         .then((response)=>
         {
             console.log(response.data)

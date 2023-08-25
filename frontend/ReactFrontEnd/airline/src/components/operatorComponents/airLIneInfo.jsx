@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
-
+import FlightStatus from './flightStatus';
 const AirlineInfo = ({ data }) => {
   return (
     <div>
@@ -52,10 +52,8 @@ const AirlineInfo = ({ data }) => {
             <td>{seat.seatType}</td>
             <td>{seat.price} </td>
             <td>{seat.seatCount}</td>
-            <td>{seat.TotalBooked}</td>
-            <td>
-             
-            </td>
+            <td>{seat.totalBooked}</td>
+            
           </tr>
             
        
@@ -63,6 +61,9 @@ const AirlineInfo = ({ data }) => {
         </tbody>
       </Table>
              
+            </td>
+            <td>
+             <FlightStatus data={schedule}></FlightStatus>
             </td>
           </tr>
             

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.LoginDTO;
 import com.app.dto.OpearatorDto;
 import com.app.dto.OperatorFlightDetailDto;
 import com.app.entity.Person;
@@ -61,4 +62,6 @@ public class OperatorController
 		System.out.println(id);
  	 return ResponseEntity.status(HttpStatus.OK).body(operService.getAllFlightOfuser(id));
   } 
+	 
+	
 }

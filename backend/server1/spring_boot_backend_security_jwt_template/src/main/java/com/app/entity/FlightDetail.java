@@ -31,7 +31,8 @@ public class FlightDetail extends BaseEntity
 		@JoinColumn(name = "person_id")
 		@JsonProperty(access = Access.WRITE_ONLY)
 	    private Person personId;
-		
+		@Column(unique = true)
+		  private Long airlineNumber;
 	
 		 
 		 

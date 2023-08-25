@@ -2,13 +2,16 @@ import React, { useState,useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import ProtectedNavOpr from './protectedNavOpr';
 import OperatorService  from '../../services/OperatorService';
+import {useNavigate} from 'react-router-dom'
 const AddFlightSchedule = () => {
   const [message,setMessage]=useState("");
+  const navigate=useNavigate();
+  const userId=sessionStorage.getItem("userId");
 
   const [formData, setFormData] = useState({
     airlineName: '',
     category: '',
-    persId: 3,
+    persId: userId,
     airlineNumber: 0,
     listOfScedules: [
       {
@@ -41,8 +44,10 @@ const AddFlightSchedule = () => {
     addFlightDetails(formData)
     .then((response)=>
     {
+      navigate('/scheduleAdded');
+
       //setMessage("Flight details added");
-       alert("schedule added")
+      //  alert("schedule added")
         
     })
     .catch((error)=>

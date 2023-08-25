@@ -8,7 +8,7 @@ function BookingHistory()
 {
 
 
-    const personId=1;
+    const personId=sessionStorage.getItem("userId");;
     const [bookingData,setBookingData]=useState([]);
     const [message,setMessage]=useState("");
     useEffect(()=>

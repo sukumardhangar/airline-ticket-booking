@@ -10,4 +10,5 @@ import com.app.entity.Person;
 public interface PersonRepository extends JpaRepository<Person,Long> {
       Person findByFirstName(String name);
      Optional<Person> findByEmailAndPassword(String email,String pass);
+     Optional<Person> findByEmail(String email);
 }

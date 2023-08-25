@@ -5,6 +5,8 @@ import ProtectedNav from "./protectedNav";
 
 function AllPassnger()
 {
+  const userId = sessionStorage.getItem("userId");
+
     const allState=useLocation().state;
    const seats=allState.data;
    const selectedSeats=allState.arrat;
@@ -31,7 +33,7 @@ function AllPassnger()
   {
     const finalData=
     {
-        "personId": 1,
+        "personId": userId,
         "totalPrice": totalPrice,
         "seatId": seats.seats.seatingNumberAndPassId.seatTypeNumber,
         "passangerDtoList": passData

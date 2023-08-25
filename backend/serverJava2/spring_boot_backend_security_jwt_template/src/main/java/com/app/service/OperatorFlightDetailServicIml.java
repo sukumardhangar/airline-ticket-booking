@@ -11,6 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +21,7 @@ import com.app.dto.OpearatorDto;
 import com.app.dto.OperatorFlightDetailDto;
 import com.app.dto.OperatorScheduleDto;
 import com.app.dto.OperatorSeatDto;
+import com.app.dto.PersonAuthDto;
 import com.app.dto.SeatSendDTo;
 import com.app.entity.FlightDetail;
 import com.app.entity.Person;
@@ -35,6 +37,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class OperatorFlightDetailServicIml implements OperatorFlightDetailService
 {
+	@Autowired
+	private PasswordEncoder encoder;
 	@Autowired
 	private ModelMapper mapper;
     
@@ -137,6 +141,7 @@ public class OperatorFlightDetailServicIml implements OperatorFlightDetailServic
 	public ApiResponse addOperator(OpearatorDto operator) {
 		
 		Person person= mapper.map(operator,Person.class);
+		person.setPassword(encoder.encode(person.getPassword()));
 		personRepo.save(person);
 		return new ApiResponse("operator added succsfully");
 	}
@@ -223,4 +228,41 @@ public class OperatorFlightDetailServicIml implements OperatorFlightDetailServic
 		
 		return flightDetailDtoList;
 	}
+	
+//jwt
+	
+
+	@Override
+	public Person authenitcateUser(String email) {
+		
+		return personRepo.findByEmail(email)
+				.orElseThrow(()-> new RuntimeException("Invalid Email"));
+	}
+
+
+	@Override
+	public Long findUserId(String userName) {
+		Person user = personRepo.findByEmail(userName)
+				.orElseThrow(()-> new RuntimeException("Invalid Email"));
+		
+		return user.getId();
+	}
+@Override
+public PersonAuthDto finfUserById(Long userId) {
+	Person user = personRepo.findById(userId)
+			.orElseThrow(()-> new RuntimeException("Invalid User Id"));
+	
+	PersonAuthDto userDto = mapper.map(user, PersonAuthDto.class);
+	return userDto;
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

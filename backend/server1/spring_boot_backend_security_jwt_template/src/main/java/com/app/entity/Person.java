@@ -20,7 +20,7 @@ public class Person extends BaseEntity
   private String lastName;
 	@Column(name = "email",length = 30)
   private String email;
-	@Column(name = "password",length = 30)
+	@Column(name = "password")
   private String password;
 	@Column(name = "mob",length = 30)
 	  private String mob;
@@ -29,6 +29,7 @@ public class Person extends BaseEntity
   private Role role;
 	@Column(name = "status",length = 30)
 	  private String status;
+	
 	
 	
 	

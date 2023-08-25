@@ -4,14 +4,14 @@ import { useLocation,useNavigate,Link } from 'react-router-dom';
 function Profile()
 {
     const navigate=useNavigate();
-
+    const userId=sessionStorage.getItem("userId");
     const [formData, setFormData]=useState([]);
     const [message,setMessage]=useState("");
     useEffect(()=>
     {
         
         CustomerService.
-        getPerson(1)
+        getPerson(userId)
         .then((response)=>
         {
             console.log(response.data)

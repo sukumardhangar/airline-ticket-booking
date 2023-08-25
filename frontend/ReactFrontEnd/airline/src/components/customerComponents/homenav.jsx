@@ -1,7 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DropdownButtonExample from './checknav';
+import {useNavigate} from 'react-router-dom'
 
 const Homenav = () => {
+  const navigate=useNavigate();
+
+  const signIn=()=>
+  {
+    navigate('/login');
+
+  }
   return (
 
     <div>
@@ -27,10 +35,10 @@ const Homenav = () => {
 
                 <button class="btn btn-outline-primary" type="submit" style={{ margin: 15 }}>Search</button>
               </div> */}
-              <div>
-               <DropdownButtonExample/>
-               
-              </div>
+               <div>
+        <button  class="btn btn-outline-success" type="submit" style={{margin:15}} onClick={signIn}>Sign In</button>
+        
+        </div>
 
             </form>
 

@@ -1,70 +1,85 @@
+
+
 import ProtectedNav from "./protectedNav";
-import {useEffect,useState} from "react"
+import React , { useState }  from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {useNavigate} from 'react-router-dom'
-const SearchFLight= ()=>
+
+const SearchFLight = () =>
 {
 
-     const [data ,setData]=useState({source:"",destination:"",departureTime:""})
-     const navigate=useNavigate();
-     const onChangeCred=(args)=>
-     {
-         var copytext={...data};
-         copytext[args.target.name]=args.target.value;
-         setData(copytext);
-     }
+  const navigate=useNavigate();
 
-     const toFlightDetail=()=>{
-   navigate('flightDetail',{state:data});
-     }
-   
+  const [formData, setFormData] = useState({
+    source: '',
+    destination: '',
+    departureTime : ''
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const toFlightDetail=()=>{
+    navigate('/flightDetail',{state:formData});
+      }
+
       return (
-        <div>
-          <ProtectedNav></ProtectedNav>
-          {/* Required meta tags */}
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-          {/* Bootstrap CSS */}
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous" />
-          <title>Hello, world!</title>
-        
-          <div className="row">
-            <div className="col-2" />
-            <div className="col-8">
-              <div >
-                <form >
-                  <div className="form-group row">
-                    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Source</label>
-                    <div className="col-sm-10">
-                      <input type="text" className="form-control" id="inputPassword"  value={data.source} name="source" onChange={onChangeCred}/>
-                    </div>
-                  </div>
-                  <br />
-                  <div className="form-group row">
-                    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Destination</label>
-                    <div className="col-sm-10">
-                      <input type="text" className="form-control" id="inputPassword" value={data.destination} name="destination"onChange={onChangeCred} />
-                    </div>
-                  </div>
-                  <div className="form-group row">
-                     <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Destination</label>
-                     <div className="col-sm-10">
-                      <input type="datetime-local" value={data.departureTime} name="departureTime" onChange={onChangeCred}/> 
-                     </div>
-                  </div>
-                  <br />
-                  <center>
-                  <a  className="btn btn-primary btn-lg active" role="button" aria-pressed="true" onClick={toFlightDetail}>Go To Flights</a>
-                  </center>
-                </form>
-              </div>
-            </div>
-            <div className="col-2" />
-          </div>
-          {/* Optional JavaScript */}
-          {/* jQuery first, then Popper.js, then Bootstrap JS */}
+        <>
+        <ProtectedNav></ProtectedNav>
+
+<div class="container">
+<div class="row">
+  <div class="col-1">
+    
+  </div>
+  <div class="col-10">
+    <div style={{backgroundColor:"#FD2D00"}}>
+      <div  style={{margin:20 , padding:20 }}>
+      <div className="row">
+        <div className="col">
+        <label for="exampleInputEmail1">Source</label>
+                    <input type="text" class="form-control" name="source" value={formData.source} onChange={handleChange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Source" />
+                    <small id="emailHelp" class="form-text text-muted"></small>
         </div>
+        <div className="col">
+        <label for="exampleInputEmail1">Destination</label>
+                    <input type="text" class="form-control" name="destination" value={formData.destination} onChange={handleChange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Destination" />
+                    <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+        {/* <div className="col">
+        <label for="exampleInputEmail1">No of passengers</label>
+                    <input type="number" class="form-control" name="passengerCount" value={formData.passengerCount} onChange={handleChange} id="exampleInputEmail1"  aria-describedby="emailHelp" placeholder="Passengers" />
+                    <small id="emailHelp" class="form-text text-muted"></small>
+        </div> */}
+        <div className="col">
+        <label for="exampleInputEmail1">Date</label>
+                    <input type="datetime-local" class="form-control" name="departureTime" value={formData.departureTime} onChange={handleChange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Travel Date" />
+                    <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+      </div>
+      <br></br>
+      <div className="row" style={{textAlign :"center"}} >
+        <div className="col">
+        <button type="submit" class="btn btn-primary" onClick={toFlightDetail}>Search</button>
+        </div>
+        
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="col-1">
+    
+  </div>
+</div>
+
+</div></>
       );
     }
-;
+ ;
 
-export default SearchFLight;
+ export default SearchFLight;

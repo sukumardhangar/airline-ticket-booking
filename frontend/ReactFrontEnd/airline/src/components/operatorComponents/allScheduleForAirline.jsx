@@ -36,7 +36,7 @@ console.log("sdsd",airlineData);
     return(<>
      <ProtectedNavOpr />
     {airlineData ? (
-      <AirlineInfo data={airlineData} />
+      <AirlineInfo data={airlineData} ></AirlineInfo>
     ) : (
       <p>Not flight availble</p>
     )}

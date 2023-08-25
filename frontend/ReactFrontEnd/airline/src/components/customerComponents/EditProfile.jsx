@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 function EditPorfile() {
 
   const [message,setMessage]=useState("");
+  const userId=sessionStorage.getItem("userId");
 
   useEffect(()=>
   {
@@ -41,7 +42,7 @@ const updateProfile=()=>
 
   const senddata=
   {
-    "id": 1,
+    "id": userId,
   "firstName": formData.firstName,
   "lastName": formData.lastName,
   "email": formData.email,

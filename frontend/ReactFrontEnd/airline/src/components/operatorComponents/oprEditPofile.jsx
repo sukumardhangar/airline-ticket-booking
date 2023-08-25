@@ -8,12 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 function OprEditPorfile() {
 
   const [message,setMessage]=useState("");
+  const id=sessionStorage.getItem("userId");
 
   useEffect(()=>
   {
       
     OperatorService.
-    getOperator(3)
+    getOperator(id)
       .then((response)=>
       {
           console.log(response.data)
