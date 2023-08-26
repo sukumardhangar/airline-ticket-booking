@@ -2,7 +2,12 @@ import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 import FlightStatus from './flightStatus';
 const AirlineInfo = ({ data }) => {
+  const cancelSchedule=()=>
+  {
+    
+  }
   return (
+   
     <div>
 <div className="form-group row">
                     <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Airline Name</label>
@@ -63,7 +68,7 @@ const AirlineInfo = ({ data }) => {
              
             </td>
             <td>
-             <FlightStatus data={schedule}></FlightStatus>
+             <FlightStatus data={schedule} cancelSchedule={cancelSchedule}></FlightStatus>
             </td>
           </tr>
             

@@ -1,4 +1,5 @@
 import axios from 'axios';
+const jwtToken=sessionStorage.getItem("jwt");
 
 const CustomerAxios= axios.create({
   baseURL: 'http://localhost:8080/',
@@ -7,10 +8,14 @@ const CustomerAxios= axios.create({
   },
 });
 
+// baseURL: apiUrl,
+// headers: {
+//   'Authorization': `Bearer ${jwtToken}`
 const OperatorAxios= axios.create({
   baseURL: 'http://localhost:7066/operator/',
   headers: {
-    'Content-Type': 'application/json',
+   // 'Content-Type': 'application/json',
+   'Authorization': `Bearer ${jwtToken}`
   },
 });
 

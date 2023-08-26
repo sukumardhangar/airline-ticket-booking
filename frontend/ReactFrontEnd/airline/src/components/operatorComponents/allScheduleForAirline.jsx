@@ -6,6 +6,7 @@ import { useLocation,useNavigate,Link } from 'react-router-dom';
 import AirlineInfo from './airLIneInfo'
 function AllScheduleByAirline()
 {
+  
     const data=useLocation().state;
     console.log(data);
     const [message,setMessage]=useState("");

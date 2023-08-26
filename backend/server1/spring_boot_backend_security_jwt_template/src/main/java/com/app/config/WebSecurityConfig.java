@@ -43,7 +43,7 @@ public class WebSecurityConfig {
 		and().
 		authorizeRequests()
 		.antMatchers("/admin/useradmin").permitAll()
-		.antMatchers("/person/addperson").permitAll()
+		.antMatchers("/person/addperson/**").permitAll()
 		.antMatchers("/person/**").permitAll()
 		.antMatchers("/Booking/**").permitAll()
 		.antMatchers("/ticket/**").permitAll()

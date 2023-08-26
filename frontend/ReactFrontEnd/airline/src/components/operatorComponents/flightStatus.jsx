@@ -17,7 +17,5 @@ function FlightStatus(props)
            {
             return(<> <h5>traveled succefully</h5> </>)
            }
-         
-    
 }
 export default FlightStatus;

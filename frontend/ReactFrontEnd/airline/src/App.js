@@ -1,6 +1,8 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import Slider from 'react-slick';
 //  import 'slick-carousel/slick/slick.css';
 //  import 'slick-carousel/slick/slick-theme.css';
@@ -27,7 +29,14 @@ import ScheduleAdded from './components/operatorComponents/scheduleAdded';
 import LoginPage from './components/customerComponents/login';
 import ProtectedRoute from './components/protectedRoute';
 import OprHome from './components/operatorComponents/homeOpr';
+import RegistePage from './components/customerComponents/register';
 
+
+import AdApprovedOperator from './components/adminComponents/AdApprovedOperator copy';
+import AdPendingOperator from './components/adminComponents/AdPendingOperator';
+import AdminHome from './components/adminComponents/adminHome';
+import AdminProfile from './components/adminComponents/AdAdminProfile';
+import AdEditPorfile from './components/adminComponents/AdEditAdminProfile';
 function App() {
   return (
     <BrowserRouter>
@@ -57,7 +66,20 @@ function App() {
              <Route exact path='/oprEditprofile' element={ <OprEditPorfile/> } />
              <Route exact path='/allFlightOfOPerator' element={ <GetAllFlightDetailFOrOperator/> } />
              <Route exact path='/scheduleAdded' element={ <ScheduleAdded/> } />
+             <Route exact path='/register' element={ <RegistePage/> } />
+
+{/* addmin  */}
+           <Route exact path='/AdApprovedOperator' element={ <AdApprovedOperator/> } />
+           <Route exact path='/AdPendingOperator' element={ <AdPendingOperator/> } />
+           <Route exact path='/adminHome' element={ <AdminHome/> } />
+           <Route exact path='/adminProfile' element={ <AdminProfile/> } />
+           <Route exact path='/editAdminPorfile' element={ <AdEditPorfile/> } />
+
+           
+
+
        </Routes>
+       <ToastContainer />
         </div>
       </div>
     </BrowserRouter>

@@ -10,7 +10,7 @@ const editPerson = (data) => {
  
 
   const addPerson = (data) => {
-    return CustomerAxios.post('person/addPerson', data);
+    return CustomerAxios.post('person/addperson', data);
   };
 
   const getPersonAll= () => {

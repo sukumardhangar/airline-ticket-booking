@@ -12,5 +12,15 @@ function ProtectedNavOpr()
     {
         return(<Homenav/>)
     }
+    // const id=sessionStorage.getItem("userId");
+    // const role=sessionStorage.getItem("role");
+    // if( false)
+    // {
+    //     return(<OperatorNav/>)
+    // }
+    // else
+    // {
+    //     return(<Homenav/>)
+    // }
 }
 export default ProtectedNavOpr;

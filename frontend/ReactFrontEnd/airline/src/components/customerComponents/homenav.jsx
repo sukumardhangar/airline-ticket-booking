@@ -10,6 +10,11 @@ const Homenav = () => {
     navigate('/login');
 
   }
+  const SignUpUser=()=>
+  {
+    navigate('/register');
+
+  }
   return (
 
     <div>
@@ -37,6 +42,10 @@ const Homenav = () => {
               </div> */}
                <div>
         <button  class="btn btn-outline-success" type="submit" style={{margin:15}} onClick={signIn}>Sign In</button>
+        
+        </div>
+        <div>
+        <button  class="btn btn-outline-success" type="submit" style={{margin:15}} onClick={SignUpUser}>Sign Up</button>
         
         </div>
 

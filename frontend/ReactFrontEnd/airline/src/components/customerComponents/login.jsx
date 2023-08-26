@@ -5,7 +5,7 @@ import { useLocation,useNavigate,Link } from 'react-router-dom';
 import { toast} from 'react-toastify';
 import axios from 'axios';
 import Homenav from './homenav';
-
+import AdminService from '../../services/AdminService';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -28,7 +28,8 @@ function LoginPage() {
               const response = await axios.post('http://localhost:8080/auth/signin', {
                  email,
                  password
-              });
+              }).then((response)=>
+              {
 
               console.log(response.data)
                if(response.data.role==="CUSTOMER")
@@ -46,7 +47,12 @@ function LoginPage() {
                    // alert("Invalid customer userName and PAssword")
                      toast.error('Invalid customer userName and PAssword');
 
+                    
                     }
+                  }).catch((error)=>
+                  {
+                    toast("Invalid customer userName and PAssword")             
+                  });
   
       } 
       catch (error) {
@@ -64,36 +70,77 @@ function LoginPage() {
               const response = await axios.post('http://localhost:7066/auth/signin', {
                  email,
                  password
-              });
-
-              console.log(response.data)
-               if(response.data.role==="OPERATOR")
-                   {
-                   sessionStorage.setItem('jwt', response.data.jwt);
-                   sessionStorage.setItem('userId', response.data.userId);
-                   sessionStorage.setItem('role', response.data.role);
-
-                      toast.success('Login successful!', { position: 'top-center' });
-
-                       navigate("/OpAddSchedule")
-                   }
-                 else
-                   {
-                    console.log("Not ")
-                     toast.error('Invalid customer userName and PAssword', { position: 'top-center' });
-
+              }).then((response)=>{ console.log(response.data)
+                if(response.data.role==="OPERATOR")
+                    {
+                    sessionStorage.setItem('jwt', response.data.jwt);
+                    sessionStorage.setItem('userId', response.data.userId);
+                    sessionStorage.setItem('role', response.data.role);
+ 
+                       toast.success('Login successful!', { position: 'top-center' });
+ 
+                        navigate("/OpAddSchedule")
                     }
+                  else
+                    {
+                     console.log("Not ")
+                      toast.error('Invalid customer userName and PAssword', { position: 'top-center' });
+ 
+                     }}).catch((error)=>
+                     {
+                       toast("Invalid Operator userName and PAssword")             
+                     });
+
+             
   
-      } catch (error) {
-        toast.error('Load after somethime');
-      }
+              } catch (error) {
+                 toast.error('Load after somethime');
+             }
+
+     
+
+        }
+        else if(role==="ADMIN")
+        {
+          
+          try {
+            AdminService
+            .adminLogin(data)
+            .then((response)=>{ 
+              console.log(response.data[0].role)
+              if(response.data[0].role=="admin")
+                  {
+                    console.log("in login",response.data[0].id)
+
+                  sessionStorage.setItem('userId', response.data[0].id);
+                  sessionStorage.setItem('userName', response.data[0].fname);
+
+                     toast.success('Login successful!', { position: 'top-center' });
+
+                      navigate("/adminHome")
+                  }
+                else
+                  {
+                   console.log("Not ")
+                    toast.error('Invalid admin userName and Password', { position: 'top-center' });
+
+                   }}).catch((error)=>
+                   {
+                     toast("Invalid Admin userName and Password")             
+                   });
+
+           
+
+            } catch (error) {
+               toast.error('Load after somethime');
+           }
+          
 
         }
         else
         {
           console.log("error big")
-          toast.error('Invalid username or password', { position: 'top-center' });
-
+          toast.error('Invalid  username or password of User', { position: 'top-center' });
         }
           
       
@@ -126,7 +173,7 @@ function LoginPage() {
                 >
                   <option value="CUSTOMER">Customer</option>
                   <option value="OPERATOR">OPERATOR</option>
-                  <option value="admin">ADMIN</option>
+                  <option value="ADMIN">ADMIN</option>
                 </select>
               </div>
               <h2 className="text-center mb-4">Login</h2>

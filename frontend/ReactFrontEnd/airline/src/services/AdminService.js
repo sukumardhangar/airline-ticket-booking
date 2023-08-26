@@ -3,22 +3,46 @@ import allaxios from '../Customer-http-common';
 //admin.js
 const AdminAxios=allaxios.AdminAxios;
 
-const GetAllOperator = () => {
-  return AdminAxios.get('admin');
+
+const getAllAprrovedOperator = (status) => {
+  return AdminAxios.get(`operator/${status}`);
+};
+
+const ToChangeStatus = (id,data) => {
+  return AdminAxios.put(`operator/${id}`, data);
 };
 
 
-const ToChangeStatus = (id,data) => {
-  return AdminAxios.put(`admin/${id}`, data);
+const deleteOpr = (id) => {
+  return AdminAxios.delete(`operator/${id}`);
+};
+
+const GetAdminProfile = (id) => {
+  return AdminAxios.get(`operator/profile/${id}`);
+};
+
+const adminLogin = (data) => {
+  return AdminAxios.patch(`operator/`,data);
 };
 
 
 const EditAdminProfile = (data) => {
-  return AdminAxios.put('admin', data);
+  return AdminAxios.put('flight', data);
 };
 
-const GetAdminProfile = (admin) => {
-  return AdminAxios.get(`admin/${admin}`);
+
+//
+
+
+
+
+
+
+
+
+
+const GetAllOperator = () => {
+  return AdminAxios.get('admin');
 };
 
 
@@ -34,4 +58,4 @@ const GetFlightDetailForOperator = (id) => {
 
 
 
-export default { GetAllOperator, ToChangeStatus, EditAdminProfile, GetAdminProfile, GetAllFlightDetail };
+export default { GetAllOperator, ToChangeStatus, EditAdminProfile, GetAdminProfile, GetAllFlightDetail ,getAllAprrovedOperator,deleteOpr,adminLogin};
