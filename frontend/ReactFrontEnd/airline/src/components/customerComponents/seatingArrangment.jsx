@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useLocation,useNavigate,Link } from 'react-router-dom';
 import './Boxsyle.css';
 import Seats from "./seats";
@@ -6,6 +6,16 @@ import ProtectedNav from "./protectedNav";
 
 function SeatingArrangment()
 {
+    useEffect(()=>{
+
+        const userId= sessionStorage.getItem("userId");
+        console.log(userId)
+        if(userId==null)
+        {
+         navigate('/login');
+     
+        }
+     },[])
     const [message,setMessage]=useState("");
     const navigate=useNavigate();
 //    const [path,setPath]=useState("");

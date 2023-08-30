@@ -7,12 +7,17 @@ const OperatorNav = () =>
 
   const signOut=()=>
   {
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("jwt");
+    sessionStorage.removeItem("role");
+
     navigate('/');
 
   }
 
   const Profile=()=>
   {
+   
     navigate('/oprProfile');
 
     

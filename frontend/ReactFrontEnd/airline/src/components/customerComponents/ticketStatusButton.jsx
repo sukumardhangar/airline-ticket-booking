@@ -1,12 +1,15 @@
 function TicketStatusButton(props)
 {
     console.log(props.status)
+            const flightTime = new Date(props.deparutreTime); // A future date and time
+
+    console.log("dsd",flightTime.getTime());
+
        if( props.status=="DONE")
        {
 
         const currentDate = new Date();
-        const flightTime = new Date(props.deparutreTime); // A future date and time
-
+         console.log(flightTime.getTime()," ",currentDate.getTime());
           if(flightTime.getTime() > currentDate.getTime())
            return(
                

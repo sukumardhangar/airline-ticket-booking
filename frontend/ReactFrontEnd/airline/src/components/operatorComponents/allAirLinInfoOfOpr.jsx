@@ -57,7 +57,7 @@ const AllAirLineInfoOpr = ({ allData }) => {
             <td>{seat.seatType}</td>
             <td>{seat.price} </td>
             <td>{seat.seatCount}</td>
-            <td>{seat.TotalBooked}</td>
+            <td>{seat.totalBooked}</td>
             <td>
              
             </td>

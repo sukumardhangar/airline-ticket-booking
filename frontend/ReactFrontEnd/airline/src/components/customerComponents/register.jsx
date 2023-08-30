@@ -134,7 +134,6 @@ function RegistePage() {
                 >
                   <option value="CUSTOMER">Customer</option>
                   <option value="OPERATOR">OPERATOR</option>
-                  <option value="admin">ADMIN</option>
                 </select>
               </div>
               <h2 className="text-center mb-4">Sign Up</h2>

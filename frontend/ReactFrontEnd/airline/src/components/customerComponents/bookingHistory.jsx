@@ -3,6 +3,8 @@ import CustomerService from '../../services/CustomerService'
 import { useEffect,useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import TicketStatusButton from "./ticketStatusButton";
+import { toast} from 'react-toastify';
+
 
 function BookingHistory()
 {
@@ -14,25 +16,29 @@ function BookingHistory()
     useEffect(()=>
         {
             
-            CustomerService.
-            getTicketHistory(personId)
-            .then((response)=>
-            {
-                console.log("not error",response.data)
-
-                setBookingData(response.data);
-                
-            })
-            .catch((error)=>
-            {
-                console.log(" error")
-
-                setMessage("no data")
-                
-            });
+          method();
             
         },[]
     )
+    const method=()=>
+    {
+      CustomerService.
+      getTicketHistory(personId)
+      .then((response)=>
+      {
+          console.log("not error",response.data)
+
+          setBookingData(response.data);
+          
+      })
+      .catch((error)=>
+      {
+          console.log(" error")
+
+          setMessage("no data")
+          
+      });
+    }
 const cancelTicket=(id)=>
 {
   CustomerService.
@@ -40,8 +46,10 @@ const cancelTicket=(id)=>
   .then((response)=>
   {
       console.log("not error",response.data)
+      method();
+      toast.success('canceled the ticket!');
 
-      alert('canceled');
+      
       
   })
   .catch((error)=>
@@ -112,7 +120,7 @@ const cancelTicket=(id)=>
                
            </td>
            <td>
-            <TicketStatusButton cancelTicket={cancelTicket} deparutreTime={sched.deparutreTime}  status={sched}  tickId={sched.tickId}/>
+            <TicketStatusButton cancelTicket={cancelTicket} deparutreTime={sched.deparutreTime}  status={sched.statusOfTicket}  tickId={sched.tickId}/>
            </td>
             </tr>
           ))}
