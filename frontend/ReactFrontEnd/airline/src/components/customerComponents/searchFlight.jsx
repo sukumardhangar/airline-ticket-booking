@@ -1,5 +1,5 @@
 
-
+import pic1 from '../../images/wel3.jpg'
 import ProtectedNav from "./protectedNav";
 import React , { useState }  from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -29,18 +29,18 @@ const SearchFLight = () =>
       }
 
       return (
-        <>
+        <div style={{backgroundColor:"orange"}}>
         <ProtectedNav></ProtectedNav>
 
-<div class="container">
+<div class="container" >
 <div class="row">
   <div class="col-1">
     
   </div>
-  <div class="col-10">
+  <div class="col-10" style={{backgroundColor:"black"}}>
     <div style={{backgroundColor:"#FD2D00"}}>
       <div  style={{margin:20 , padding:20 }}>
-      <div className="row">
+      <div className="row" >
         <div className="col">
         <label for="exampleInputEmail1">Source</label>
                     <input type="text" class="form-control" name="source" value={formData.source} onChange={handleChange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Source" />
@@ -77,7 +77,9 @@ const SearchFLight = () =>
   </div>
 </div>
 
-</div></>
+</div>
+<div className='row'  >
+  <img src={pic1} alt="" style={{height:600}} /></div></div>
       );
     }
  ;

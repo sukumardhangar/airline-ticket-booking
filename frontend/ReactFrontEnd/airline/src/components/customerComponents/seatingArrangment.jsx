@@ -1,8 +1,11 @@
-import React, { useState,useEffect } from "react";
+
+
+import React, { useEffect, useState } from "react";
 import { useLocation,useNavigate,Link } from 'react-router-dom';
 import './Boxsyle.css';
 import Seats from "./seats";
 import ProtectedNav from "./protectedNav";
+import pic1 from './../../images/j51.jpg'
 
 function SeatingArrangment()
 {
@@ -64,21 +67,26 @@ const toAddPassanger=()=>
 
 
     return(
-        <>
+        <div style={{backgroundColor:"red",height:"100vh",backgroundImage:`url(${pic1})`}}>
                  <ProtectedNav></ProtectedNav>
 
-        <div id="container" >
+       <center> <div id="container" style={{backgroundColor:"yellow",marginTop:100}}>
         {ListOfSeats.map(seat=>{
                 return( <Seats  Seatss={seat} changeBackgroundColor={changeBackgroundColor} divColors={divColors}></Seats>)
         })}
      </div>
+        </center> 
+       
+     <br></br>
      <br></br>
      <div >{message}</div>
-     <input type="button" value="add passanger" onClick={toAddPassanger}/>
+
+<center><button className="btn btn-primary" value="add passanger" onClick={toAddPassanger}>Fill Passenger Details</button>
+     </center>
      {/* <Link to={"/addPassanger"} state={{ seats:data}}  >add Passanger</Link> */}
      {/* <button type="button" class="btn btn-primary" onclick={toAddPassanger} >Add Passanger</button> */}
        
-        </>
+        </div>
     )
 }
 export default SeatingArrangment;

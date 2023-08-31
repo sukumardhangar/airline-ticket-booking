@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useLocation,useNavigate,Link } from 'react-router-dom';
 import PassengerNew from "./passengernew";
@@ -44,7 +45,7 @@ function AllPassnger()
   }
   const totalPrice=seats.seats.price *myList.length;
 
-    return(<>
+    return(<div style={{backgroundColor:"black"}}>
               <ProtectedNav></ProtectedNav>
 
      { myList.map(element => {
@@ -54,12 +55,13 @@ function AllPassnger()
      })
         }
 
-<input type="button" value="make payment" onClick={addBooking}/>
-
+<center><button className="btn btn-primary" value="make payment" onClick={addBooking}>Go to Payment</button>
+</center>
+<br></br>
 
         
     
-        </>)
+        </div>)
 
 
 }

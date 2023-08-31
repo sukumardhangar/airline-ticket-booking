@@ -1,9 +1,12 @@
+
 import { useLocation,useNavigate,Link } from 'react-router-dom';
 import { useEffect,useState } from 'react';
 import SeatSelectButton from './SeatSelectionButton'
 import CustomerService from '../../services/CustomerService';
 import { Table, Button } from 'react-bootstrap';
 import ProtectedNav from "./protectedNav";
+import pic1 from './../../images/d3.jpg';
+import { toast} from 'react-toastify';
 
 
 const SeatType=()=>
@@ -22,12 +25,13 @@ const SeatType=()=>
             getSeat(data.scheduleId)
             .then((response)=>
             {
+                toast.success("Seat type selected")
                 setSeasts(response.data);
                                
             })
             .catch((error)=>
             {
-                setMessage("flight not availbale")
+              toast.error("Flight not available") 
                 
             });
             
@@ -39,16 +43,21 @@ const SeatType=()=>
         <>
       <ProtectedNav></ProtectedNav>
 
-   <div>
+   <div style={{backgroundImage:`url(${pic1})`,height:"100vh"}}>
     <h1>{message}</h1>
-    <div>
+    <div >
     </div>
-    <div>
-    <Table striped bordered hover>
+    <div >
+      <div className='row' style={{backgroundImage:`url(${pic1})`,height:"100vh"}}>
+        <div className='col-2'>
+
+        </div>
+        <div className='col-8' style={{marginTop:100}}>
+        <Table striped bordered hover>
         <thead>
           <tr>
-            <th>seatType</th>
-            <th>price</th>
+            <th>SeatType</th>
+            <th>Price (₹)</th>
             <th>Choose seats</th>
 
             
@@ -59,13 +68,21 @@ const SeatType=()=>
             <tr key={seat.ScheduleId}>
               <td>{seat.seatType}</td>
               <td>{seat.price}</td>
-              <td><SeatSelectButton seating={seat} ></SeatSelectButton></td>
+              <td><button className='btn btn-info'><SeatSelectButton seating={seat} ></SeatSelectButton></button></td>
              
              
             </tr>
           ))}
         </tbody>
       </Table>
+        </div>
+        <div className='col-2'>
+
+        </div>
+
+        
+      </div>
+   
     </div>
      
     </div>         
